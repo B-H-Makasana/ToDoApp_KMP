@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.example.todoapp.data.Task
 import com.example.todoapp.ui.common.HeaderView
@@ -50,11 +49,11 @@ object TaskListScreen : Screen {
         val navigator = LocalNavigator.currentOrThrow
 
         val sampleTasks = remember {
-            listOf(
-                Task("Buy Groceries", "Milk, Bread, Eggs", displayTime = "iuwew"),
-                Task("Meeting with Team", "Discuss project roadmap", displayTime = "yrytrf"),
-                Task("Workout", "Leg day at gym", displayTime = "7675")
-            )
+//            listOf(
+//                Task("Buy Groceries", "Milk, Bread, Eggs", displayTime = "iuwew"),
+//                Task("Meeting with Team", "Discuss project roadmap", displayTime = "yrytrf"),
+//                Task("Workout", "Leg day at gym", displayTime = "7675")
+//            )
         }
 
         Scaffold(
@@ -65,7 +64,7 @@ object TaskListScreen : Screen {
                 FloatingActionButton(onClick = {
                     navigator.push(AddTaskScreen)
                 }) {
-                    androidx.compose.material3.Icon(
+                    Icon(
                         painter = painterResource(Res.drawable.plus_small),
                         modifier = Modifier.size(50.dp),
                         contentDescription = "Add Task"
@@ -73,7 +72,7 @@ object TaskListScreen : Screen {
                 }
             }
         ) { pa ->
-            TaskListScreen(sampleTasks, Modifier.padding(pa))
+//            TaskListScreen(sampleTasks, Modifier.padding(pa))
         }
     }
 
