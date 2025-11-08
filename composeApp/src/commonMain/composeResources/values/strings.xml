@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TodoApp</string>
+    <string name="task_list_screen_header">TaskList</string>
+</resources>
