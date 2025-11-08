@@ -1,7 +1,8 @@
 package com.example.todoapp.ui.screens
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -28,11 +29,9 @@ object AddTaskScreen : Screen {
 
         val formattedDateTime = remember(selectedDate, selectedTime) {
             if (selectedDate != null && selectedTime != null) {
-                "${selectedDate.toString()} ${selectedTime.toString()}"
+                "${selectedDate.toString()}, ${selectedTime.toString()}"
             } else "Select Date & Time"
         }
-//        val datePickerState = rememberDatePickerState(initialSelectedDateMillis =)
-
 
         Scaffold(
             topBar = {
@@ -48,7 +47,10 @@ object AddTaskScreen : Screen {
                     },
                     navigationIcon = {
                         IconButton(onClick = { navigator.pop() }) {
-                            Text("←")
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "Back"
+                            )
                         }
                     }
                 )
@@ -80,15 +82,21 @@ object AddTaskScreen : Screen {
                 )
 
                 // Date-Time picker
-                OutlinedTextField(
-                    value = formattedDateTime,
-                    onValueChange = {},
-                    label = { Text("Date & Time") },
-                    readOnly = true,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { showDatePicker = true }
-                )
+                Card(
+                    onClick = { showDatePicker = true },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = MaterialTheme.shapes.medium
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text("Date & Time", fontSize = 12.sp, color = MaterialTheme.colorScheme.primary)
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            text = formattedDateTime,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                }
 
                 // Submit button
                 Button(
@@ -114,7 +122,7 @@ object AddTaskScreen : Screen {
                 }
             }
         }
-
+        // Date Picker Dialog
         if (showDatePicker) {
             val datePickerState = rememberDatePickerState()
 
@@ -133,20 +141,19 @@ object AddTaskScreen : Screen {
                             showDatePicker = false
                         }
                     }) {
-                        androidx.compose.material3.Text("Next")
+                        Text("Next")
                     }
                 },
                 dismissButton = {
                     TextButton(onClick = { showDatePicker = false }) {
-                        androidx.compose.material3.Text("Cancel")
+                        Text("Cancel")
                     }
                 }
             ) {
                 DatePicker(state = datePickerState)
             }
         }
-
-// Time Picker Dialog
+        // Time Picker Dialog
         if (showTimePicker) {
             val timeState = rememberTimePickerState()
 
@@ -157,18 +164,18 @@ object AddTaskScreen : Screen {
                         selectedTime = LocalTime(timeState.hour, timeState.minute)
                         showTimePicker = false
                     }) {
-                        androidx.compose.material3.Text("OK")
+                        Text("OK")
                     }
                 },
                 dismissButton = {
                     TextButton(onClick = { showTimePicker = false }) {
-                        androidx.compose.material3.Text("Cancel")
+                        Text("Cancel")
                     }
                 },
                 text =
-             {
-                TimePicker(state = timeState)
-            })
+                    {
+                        TimePicker(state = timeState)
+                    })
         }
     }
 }
